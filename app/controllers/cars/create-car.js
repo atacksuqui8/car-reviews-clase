@@ -10,7 +10,7 @@ const schema = Joi.object().keys({
   year: Joi.number().min(1980).max(new Date().getFullYear())
 });
 
-function createCar(req, res) {
+async function createCar(req, res) {
   try {
     Joi.assert(req.body, schema);
 
@@ -18,9 +18,9 @@ function createCar(req, res) {
 
     const car = { brand, model, year };
 
-    const addedCar = carsRepository.create(car);
+    const addedCar = await carsRepository.create(car);
 
-    res.status(201).send(addedCar);
+    res.status(201).send({addedCar});
   } catch(err) {
     if(err.name === 'ValidationError'){
       err.status = 400;

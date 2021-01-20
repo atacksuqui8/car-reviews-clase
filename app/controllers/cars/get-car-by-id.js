@@ -4,11 +4,11 @@ const { findById } = require('../../repositories/cars-repository');
 
 const schema = Joi.number().positive().required();
 
-function getCarById(req, res) {
+async function  getCarById(req, res) {
   try {
     const { id } = req.params;
     Joi.assert(id, schema);
-    const car = findById(parseInt(id));
+    const car = await findById(parseInt(id));
 
     if (!car) {
       throw new Error('Id not available');

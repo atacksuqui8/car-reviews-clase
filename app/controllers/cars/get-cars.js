@@ -1,8 +1,9 @@
 'use strict';
+
 const carsRepository = require('../../repositories/cars-repository');
 
-function getCars(req, res) {
-  const cars = carsRepository.findAll();
+async function getCars(req, res) {
+  const cars = await carsRepository.findAll();
 
   res.send(cars);
 }
