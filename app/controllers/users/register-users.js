@@ -28,7 +28,8 @@ async function registerUsers (req,res) {
        }
 
        const passwordHash = await bcrypt.hash(password,12);
-res.status(201).send(passwordHash);
+      const userId= await createUsers(name,email,passwordHash,'reader');
+res.status(201).send({userId,name,email,reader:'reader'});
     } catch (err) {
         res.status(400).send({ error: err.message });
     }
